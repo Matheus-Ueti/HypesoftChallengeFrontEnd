@@ -31,7 +31,7 @@ export const CategoryForm = ({ defaultValues, onSubmit, onClose }: CategoryFormP
       description: defaultValues?.description ?? '',
     },
   })
-
+  
   const isEditing = !!defaultValues?.id
 
   return (

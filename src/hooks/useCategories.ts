@@ -1,14 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { categoriesService } from '@/services/categories.service'
+import { useAuthContext } from '@/contexts/AuthContext'
 import type { CreateCategoryDTO, UpdateCategoryDTO } from '@/types/category'
 
 const QUERY_KEY = 'categories'
 
-export const useCategories = () =>
-  useQuery({
+export const useCategories = () => {
+  const { isAuthenticated } = useAuthContext()
+  return useQuery({
     queryKey: [QUERY_KEY],
     queryFn: categoriesService.getAll,
+    enabled: isAuthenticated,
   })
+}
 
 export const useCategory = (id: string) =>
   useQuery({

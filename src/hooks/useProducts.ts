@@ -1,14 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { productsService } from '@/services/products.service'
+import { useAuthContext } from '@/contexts/AuthContext'
 import type { CreateProductDTO, UpdateProductDTO } from '@/types/product'
 
 const QUERY_KEY = 'products'
 
-export const useProducts = () =>
-  useQuery({
+export const useProducts = () => {
+  const { isAuthenticated } = useAuthContext()
+  return useQuery({
     queryKey: [QUERY_KEY],
     queryFn: productsService.getAll,
+    enabled: isAuthenticated,
   })
+}
 
 export const useProduct = (id: string) =>
   useQuery({

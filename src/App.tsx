@@ -20,7 +20,7 @@ export const App = () => {
   }
 
   return (
-    <AuthContext.Provider value={{ logout }}>
+    <AuthContext.Provider value={{ logout, isAuthenticated }}>
       <BrowserRouter>
         <Routes>
           <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>

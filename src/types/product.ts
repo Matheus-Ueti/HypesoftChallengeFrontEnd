@@ -9,6 +9,14 @@ export interface Product {
   updatedAt: string
 }
 
+export interface PagedResult<T> {
+  items: T[]
+  total: number
+  page: number
+  pageSize: number
+  totalPages: number
+}
+
 export interface CreateProductDTO {
   name: string
   description: string
