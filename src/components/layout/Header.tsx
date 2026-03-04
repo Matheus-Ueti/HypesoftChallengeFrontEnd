@@ -1,4 +1,4 @@
-import { Search, Bell, LogOut } from 'lucide-react'
+import { Search, LogOut } from 'lucide-react'
 interface HeaderProps {
   onLogout: () => void
 }
@@ -17,9 +17,7 @@ export const Header = ({ onLogout }: HeaderProps) => (
       <input type="text" placeholder="Search..." className={searchInput} />
     </div>
     <div className={actions}>
-      <button className={iconButton} aria-label="Notificações">
-        <Bell size={20} />
-      </button>
+
       <button className={logoutButton} onClick={onLogout} aria-label="Sair">
         <LogOut size={20} />
       </button>
