@@ -4,7 +4,6 @@ import { ProtectedRoute } from './components/auth/ProtectedRoute'
 import { Dashboard } from './pages/Dashboard'
 import { Products } from './pages/Product'
 import { Categories } from './pages/Categories'
-import { Settings } from './pages/Settings'
 import { AuthContext } from './contexts/AuthContext'
 import { useAuth } from './hooks/useAuth'
 
@@ -28,7 +27,6 @@ export const App = () => {
               <Route path="/"           element={<Dashboard />} />
               <Route path="/products"   element={<Products />} />
               <Route path="/categories" element={<Categories />} />
-              <Route path="/settings"   element={<Settings />} />
             </Route>
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, Package, Tag, Settings, type LucideIcon } from 'lucide-react'
+import { LayoutDashboard, Package, Tag, type LucideIcon } from 'lucide-react'
 
 interface NavItem {
   icon: LucideIcon
@@ -11,7 +11,6 @@ const NAV_ITEMS: NavItem[] = [
   { icon: LayoutDashboard, label: 'Dashboard',  to: '/' },
   { icon: Package,         label: 'Produtos',   to: '/products' },
   { icon: Tag,             label: 'Categorias', to: '/categories' },
-  { icon: Settings,        label: 'Configurações', to: '/settings' },
 ]
 
 const navBase   = 'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors'
