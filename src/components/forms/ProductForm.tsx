@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -29,10 +30,21 @@ const errorCls    = 'border-red-300 focus-visible:ring-red-200'
 const selectBase  = 'w-full border border-input rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-1 focus:ring-ring'
 const selectError = 'w-full border border-red-300 rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-1 focus:ring-red-200'
 
+const formatBRL = (cents: number) =>
+  (cents / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+
+const parseCents = (value: string) =>
+  Number(value.replace(/\D/g, ''))
+
 export const ProductForm = ({ defaultValues, onSubmit, onClose }: ProductFormProps) => {
   const { data: categories = [] } = useCategories()
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const initialCents = defaultValues?.price ? Math.round(defaultValues.price * 100) : 0
+  const [priceDisplay, setPriceDisplay] = useState(
+    initialCents > 0 ? formatBRL(initialCents) : ''
+  )
+
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       name:        defaultValues?.name        ?? '',
@@ -77,8 +89,20 @@ export const ProductForm = ({ defaultValues, onSubmit, onClose }: ProductFormPro
 
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1">
-              <Label htmlFor="price">Preço (R$)</Label>
-              <Input id="price" type="number" step="0.01" className={errors.price ? errorCls : ''} {...register('price', { valueAsNumber: true })} />
+              <Label htmlFor="price">Preço</Label>
+              <Input
+                id="price"
+                inputMode="numeric"
+                placeholder="R$ 0,00"
+                className={errors.price ? errorCls : ''}
+                value={priceDisplay}
+                onChange={(e) => {
+                  const cents = parseCents(e.target.value)
+                  setPriceDisplay(cents > 0 ? formatBRL(cents) : '')
+                  setValue('price', cents / 100, { shouldValidate: true })
+                }}
+              />
+              <input type="hidden" {...register('price', { valueAsNumber: true })} />
               {errors.price && <span className="text-xs text-red-500">{errors.price.message}</span>}
             </div>
             <div className="flex flex-col gap-1">
