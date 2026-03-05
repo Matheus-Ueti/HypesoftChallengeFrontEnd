@@ -102,7 +102,6 @@ export const ProductForm = ({ defaultValues, onSubmit, onClose }: ProductFormPro
                   setValue('price', cents / 100, { shouldValidate: true })
                 }}
               />
-              <input type="hidden" {...register('price', { valueAsNumber: true })} />
               {errors.price && <span className="text-xs text-red-500">{errors.price.message}</span>}
             </div>
             <div className="flex flex-col gap-1">
